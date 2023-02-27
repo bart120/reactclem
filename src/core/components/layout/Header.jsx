@@ -1,5 +1,7 @@
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from "react-router-dom";
+
 
 function Header(props) {
     return (
@@ -15,9 +17,16 @@ function Header(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Formation
+                        <Link to="/">
+                            Formation
+                        </Link>
                     </Typography>
+
+                    <Link to="/bob">Marques</Link>
+                    <Link to="/cars">Voitures</Link>
+                    <Link to="/cars/add">Ajouter une voiture</Link>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
@@ -26,4 +35,3 @@ function Header(props) {
 }
 
 export default Header;
-
