@@ -24,7 +24,7 @@ function Header(props) {
                         </Link>
                     </Typography>
 
-                    <Link to="/bob">Marques</Link>
+                    <Link to="/brands">Marques</Link>
                     <Link to="/cars">Voitures</Link>
                     <Link to="/cars/add">Ajouter une voiture</Link>
                     <Button color="inherit">Login</Button>
