@@ -1,6 +1,7 @@
 import { Button, TextField } from "@mui/material";
 import React, { Component } from "react";
 import InputEmail from "../../core/components/forms/InputEmail";
+import withRouter from "../../core/components/routes/withRouter";
 
 class Login extends Component {
     styleTextField = { width: "300px", margin: "5px" };
@@ -11,13 +12,14 @@ class Login extends Component {
         super(props);
         //this.handleSubmit = this.handleSubmit.bind(this);// remplace "=>"
         //this.myMail = React.createRef(); //equiv getelementbyid
+        //console.log(this.props);
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
         console.log("user:", this.user);
         //appel au serveur
-
+        this.props.navigate("/");
     }
 
     changeTextField = (e) => {
@@ -45,4 +47,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
