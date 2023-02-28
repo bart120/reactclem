@@ -17,7 +17,7 @@ class MainRoutes extends Component {
                 <Route path="/brands" caseSensitive element={<BrandsList />} />
                 <Route path="/cars" element={<CarsMenu />}>
                     <Route path="add" element={<CarsAdd />} />
-                    <Route path="detail" element={<CarsDetail />} />
+                    <Route path="detail/:id/:name?" element={<CarsDetail />} />
                     <Route index element={<CarsList />} />
                 </Route>
                 <Route path="/login" element={<Login />} />
