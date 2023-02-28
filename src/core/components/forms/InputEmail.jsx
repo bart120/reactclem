@@ -8,7 +8,8 @@ class InputEmail extends Component {
     static regEx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     static propTypes = {
         label: PropTypes.string.isRequired,
-        validated: PropTypes.bool
+        validated: PropTypes.bool,
+        onTextChange: PropTypes.func
     };
 
     state = { invalid: false };
@@ -22,11 +23,15 @@ class InputEmail extends Component {
         if (this.props.validated) {
             const test = InputEmail.regEx.test(val);
             this.setState({ invalid: !test });
+            if (!test) {
+                return;
+            }
         }
+        this.props.onTextChange(e);
     }
 
     render() {
-        const { validated, ...otherProps } = this.props;
+        const { validated, onTextChange, ...otherProps } = this.props;
         /*let message;
         if (this.state.invalid) {
             message = <p style={{ color: 'red' }}>Mail invalide</p>;

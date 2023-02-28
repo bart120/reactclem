@@ -16,6 +16,8 @@ class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         console.log("user:", this.user);
+        //appel au serveur
+
     }
 
     changeTextField = (e) => {
@@ -31,7 +33,7 @@ class Login extends Component {
                     {/*<TextField type="email" label="Email" variant="outlined"
                         ref={this.myMail} style={this.styleTextField} autoFocus
                         onChange={this.changeTextField} name="login" />*/}
-                    <InputEmail label="Login" name="login" validated />
+                    <InputEmail label="Login" name="login" validated onTextChange={this.changeTextField} />
                     <br />
                     <TextField type="password" label="Mot de passe" variant="outlined" style={this.styleTextField}
                         onChange={this.changeTextField} name="password" />
