@@ -1,5 +1,6 @@
 import { Button, TextField } from "@mui/material";
 import React, { Component } from "react";
+import InputEmail from "../../core/components/forms/InputEmail";
 
 class Login extends Component {
     styleTextField = { width: "300px", margin: "5px" };
@@ -27,9 +28,10 @@ class Login extends Component {
             <div>
                 <h1>Connexion</h1>
                 <form noValidate onSubmit={this.handleSubmit}>
-                    <TextField type="email" label="Email" variant="outlined"
+                    {/*<TextField type="email" label="Email" variant="outlined"
                         ref={this.myMail} style={this.styleTextField} autoFocus
-                        onChange={this.changeTextField} name="login" />
+                        onChange={this.changeTextField} name="login" />*/}
+                    <InputEmail label="Login" name="login" validated />
                     <br />
                     <TextField type="password" label="Mot de passe" variant="outlined" style={this.styleTextField}
                         onChange={this.changeTextField} name="password" />
