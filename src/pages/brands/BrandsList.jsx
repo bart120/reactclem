@@ -1,9 +1,11 @@
 import { Button, Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { Component, useEffect, useState } from "react";
+import BrandsService from "../../core/services/BrandsService";
 
 export default function BrandsList() {
     const [name, setNom] = useState("Bob");
     const [brands, setBrands] = useState([]);
+    const servBrand = new BrandsService();
 
     function test() {
         //name = "Toto";
@@ -18,7 +20,13 @@ export default function BrandsList() {
     // = componentdidmount
     useEffect(() => {
         //console.log("componentdidmount")
-        setBrands([{ name: 'renault', image: 'renault.jpg' }, { name: 'audi', image: 'audi.jpg' }]);
+        //setBrands([{ name: 'renault', image: 'renault.jpg' }, { name: 'audi', image: 'audi.jpg' }]);
+        servBrand.getBrands().then(data => {
+            setBrands(data);
+        }).catch(err => {
+            alert(err.message);
+        });
+        //console.log(brands);
     }, []);
 
     return (
@@ -49,6 +57,7 @@ export default function BrandsList() {
 
 //version class
 export class BrandsList2 extends Component {
+    servBrand = new BrandsService();
     state = { name: "Bob", brands: [] };
 
 
@@ -58,7 +67,10 @@ export class BrandsList2 extends Component {
 
     componentDidMount() {
         //cht data
-        this.setState({ brands: [{ name: 'renault', image: 'renault.jpg' }, { name: 'audi', image: 'audi.jpg' }] });
+        //this.setState({ brands: [{ name: 'renault', image: 'renault.jpg' }, { name: 'audi', image: 'audi.jpg' }] });
+        this.servBrand.getBrands().then(resp => {
+            this.setState({ brands: resp.data });
+        });
     }
 
     render() {
