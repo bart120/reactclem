@@ -1,9 +1,14 @@
 import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 function Header(props) {
+    const navigate = useNavigate();
+
+    function handleLogin(event) {
+        navigate("/login");
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -27,7 +32,7 @@ function Header(props) {
                     <Link to="/brands">Marques</Link>
                     <Link to="/cars">Voitures</Link>
                     <Link to="/cars/add">Ajouter une voiture</Link>
-                    <Button color="inherit">Login</Button>
+                    <Button onClick={handleLogin} color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
         </Box>

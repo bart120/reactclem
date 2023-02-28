@@ -31,7 +31,7 @@ export default function BrandsList() {
                             <CardMedia
                                 sx={{ height: 140 }}
                                 image={`/images/${brand.image}`}
-                                title="green iguana"
+                                title={brand.name}
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -48,7 +48,7 @@ export default function BrandsList() {
 }
 
 //version class
-class BrandsList2 extends Component {
+export class BrandsList2 extends Component {
     state = { name: "Bob", brands: [] };
 
 
@@ -58,7 +58,7 @@ class BrandsList2 extends Component {
 
     componentDidMount() {
         //cht data
-        this.setState({ brands: [{ name: 'renault' }, { name: 'audi' }] });
+        this.setState({ brands: [{ name: 'renault', image: 'renault.jpg' }, { name: 'audi', image: 'audi.jpg' }] });
     }
 
     render() {
@@ -71,8 +71,8 @@ class BrandsList2 extends Component {
                             <Card sx={{ maxWidth: 345 }}>
                                 <CardMedia
                                     sx={{ height: 140 }}
-                                    image="/static/images/cards/contemplative-reptile.jpg"
-                                    title="green iguana"
+                                    image={`/images/${brand.image}`}
+                                    title={brand.name}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="div">

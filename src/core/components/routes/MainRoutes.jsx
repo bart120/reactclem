@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Navigate, Route, Routes } from "react-router";
-import BrandsList from "../../../pages/brands/BrandsList";
+import Login from "../../../pages/authentication/Login";
+import BrandsList, { BrandsList2 } from "../../../pages/brands/BrandsList";
 import CarsAdd from "../../../pages/cars/CarsAdd";
 import CarsDetail from "../../../pages/cars/CarsDetail";
 import CarsList from "../../../pages/cars/CarsList";
@@ -19,7 +20,8 @@ class MainRoutes extends Component {
                     <Route path="detail" element={<CarsDetail />} />
                     <Route index element={<CarsList />} />
                 </Route>
-                <Route path="404" element={<NotFound />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<Navigate to="404" />} />
             </Routes>
         );
