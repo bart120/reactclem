@@ -2,20 +2,27 @@ import { Button, MenuItem, Select, TextField } from "@mui/material";
 import { Component } from "react";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import BrandsService from "../../core/services/BrandsService";
+import moment from "moment";
+import CarsService from "../../core/services/CarsService";
+import withRouter from "../../core/components/routes/withRouter";
 
 class CarsAdd extends Component {
     styleTextField = { width: "300px", margin: "5px" };
-    state = { car: {}, brands: [] };
+    state = { car: { dateOfCirculation: moment().toDate() }, brands: [] };
     servBrands = new BrandsService();
+    servCars = new CarsService();
 
     async componentDidMount() {
         const brands = await this.servBrands.getBrands();
         this.setState({ brands: brands });
     }
 
-    handleSubmit = (ev) => {
+    handleSubmit = async (ev) => {
         ev.preventDefault();
         console.log(this.state.car);
+        const car = await this.servCars.addCar(this.state.car);
+        alert(`Voiture ajoutée avec l'ID ${car.id} `);
+        this.props.navigate("/cars");
     }
 
     changeTextField = (e) => {
@@ -26,7 +33,7 @@ class CarsAdd extends Component {
 
     onChangeDate = (name, value) => {
         const car = this.state.car;
-        car[name] = value;
+        car[name] = value.toDate();
         this.setState({ car });
     }
 
@@ -49,7 +56,7 @@ class CarsAdd extends Component {
                         renderInput={(params) => <TextField {...params} style={this.styleTextField} />}
                     />
                     <br />
-                    <Select onChange={this.changeTextField} label="Modèle" defaultValue="" name="brandID" >
+                    <Select onChange={this.changeTextField} label="Modèle" defaultValue="" name="brandID" style={this.styleTextField} >
                         <MenuItem value="">none</MenuItem>
                         {this.state.brands.map(brand =>
                             (<MenuItem key={brand.id} value={brand.id}>{brand.name}</MenuItem>)
@@ -64,4 +71,4 @@ class CarsAdd extends Component {
     }
 }
 
-export default CarsAdd;
+export default withRouter(CarsAdd);
