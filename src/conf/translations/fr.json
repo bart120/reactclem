@@ -1,0 +1,12 @@
+{
+    "translation": {
+        "header": {
+            "cars": "Les voitures",
+            "add": "Ajouter une voiture"
+        },
+        "login": {
+            "login": "Login",
+            "password": "Mot de passe"
+        }
+    }
+}

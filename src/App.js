@@ -5,6 +5,8 @@ import MainRoutes from './core/components/routes/MainRoutes';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
+import './conf/translation';
+
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>

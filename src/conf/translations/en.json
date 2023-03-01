@@ -1,0 +1,13 @@
+{
+    "translation": {
+        "header": {
+            "home": "Home",
+            "cars": "Cars",
+            "add": "Add car"
+        },
+        "login": {
+            "login": "Login",
+            "password": "Password"
+        }
+    }
+}
