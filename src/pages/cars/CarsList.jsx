@@ -1,4 +1,4 @@
-import { Icon, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Skeleton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import CarsService from "../../core/services/CarsService";
@@ -9,16 +9,26 @@ class CarsList extends Component {
 
     state = { cars: [] };
 
-    async componentDidMount() {
+    loadData = async () => {
         const data = await this.servCar.getCars();
-        this.setState({ cars: data })
+        this.setState({ cars: data });
+    }
+
+    componentDidMount() {
+        this.loadData();
+    }
+
+    delete = async (id) => {
+        const objDel = await this.servCar.deleteCarById(id);
+        alert(`La voiture ${objDel.model} est supprimée.`);
+        this.loadData();
     }
 
     render() {
         return (
             <>
                 <h1>Liste des voitures</h1>
-                {this.state.cars.length == 0 ?
+                {this.state.cars.length === 0 ?
                     (<Skeleton variant="circular" width={40} height={40} />) :
                     (
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -43,6 +53,7 @@ class CarsList extends Component {
                                         <TableCell align="right">{car.dateOfCirculation}</TableCell>
                                         <TableCell align="right">
                                             <Link to={`/cars/detail/${car.id}/${car.model}`}>detail</Link>
+                                            <Button onClick={(ev) => this.delete(car.id)}>Suppr.</Button>
                                         </TableCell>
                                     </TableRow>
                                 ))}

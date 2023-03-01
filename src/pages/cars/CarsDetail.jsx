@@ -6,6 +6,7 @@ export default function CarsDetail() {
     const [car, setCar] = useState();
     const params = useParams();
     const id = params.id;
+    //const name = params.name;
 
     /*useEffect(() => {
         servCar.getCarById(id).then(data => setCar(data));
@@ -14,7 +15,7 @@ export default function CarsDetail() {
     useEffect(() => {
         async function fetchData() {
             const servCar = new CarsService();
-            const data = await servCar.getCarById(id)
+            const data = await servCar.getCarById(id);
             setCar(data);
         }
         fetchData();

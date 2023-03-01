@@ -12,6 +12,10 @@ class CarsService {
     async getCarById(id) {
         return (await axios.get(`${url}/${id}`)).data;
     }
+
+    async deleteCarById(id) {
+        return (await axios.delete(`${url}/${id}`)).data;
+    }
 }
 
 export default CarsService;
