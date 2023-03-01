@@ -2,7 +2,9 @@ import { AppBar, Box, Button, IconButton, Toolbar, Typography } from "@mui/mater
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/authenticationActions";
+
 
 function Header(props) {
     const { t } = useTranslation();
@@ -11,8 +13,15 @@ function Header(props) {
     const isConnected = useSelector((state) => state.isConnected);
     const user = useSelector((state) => state.user);
 
+    const actions = useDispatch();
+
     function handleLogin(event) {
         navigate("/login");
+    }
+
+    function handleLogout() {
+        //actions({ type: 'AUTH_LOGOUT'});
+        actions(logout());
     }
 
     return (
@@ -39,7 +48,10 @@ function Header(props) {
                     <Link to="/cars">{t("header.cars")}</Link>
                     <Link to="/cars/add">{t("header.add")}</Link>
                     {isConnected ?
-                        (<p>Bonjour {user?.login}</p>) :
+                        (<>
+                            <p>Bonjour {user?.login}</p>
+                            <Button onClick={handleLogout} color="inherit">Logout</Button>
+                        </>) :
                         (<Button onClick={handleLogin} color="inherit">Login</Button>)}
                 </Toolbar>
             </AppBar>
