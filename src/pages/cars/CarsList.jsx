@@ -1,12 +1,14 @@
 import { Button, Skeleton, Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import BrandsService from "../../core/services/BrandsService";
 import CarsService from "../../core/services/CarsService";
 
 class CarsList extends Component {
 
     servCar = new CarsService();
-
+    servBrands = new BrandsService();
+    brands = [];
     state = { cars: [] };
 
     loadData = async () => {
@@ -14,7 +16,8 @@ class CarsList extends Component {
         this.setState({ cars: data });
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        this.brands = await this.servBrands.getBrands();
         this.loadData();
     }
 
@@ -22,6 +25,11 @@ class CarsList extends Component {
         const objDel = await this.servCar.deleteCarById(id);
         alert(`La voiture ${objDel.model} est supprimée.`);
         this.loadData();
+    }
+
+    displayBrand = (params) => {
+        const brand = this.brands.find(x => x.id === params.brandID);
+        return (<p>{brand.name}</p>);
     }
 
     render() {
@@ -37,6 +45,7 @@ class CarsList extends Component {
                                     <TableCell>Modèle</TableCell>
                                     <TableCell align="right">Prix</TableCell>
                                     <TableCell align="right">Mise en circulation</TableCell>
+                                    <TableCell align="right">Marque</TableCell>
                                     <TableCell align="right">Action</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -51,6 +60,7 @@ class CarsList extends Component {
                                         </TableCell>
                                         <TableCell align="right">{car.price}</TableCell>
                                         <TableCell align="right">{car.dateOfCirculation}</TableCell>
+                                        <TableCell align="right"><this.displayBrand brandID={car.brandID}></this.displayBrand></TableCell>
                                         <TableCell align="right">
                                             <Link to={`/cars/detail/${car.id}/${car.model}`}>detail</Link>
                                             <Button onClick={(ev) => this.delete(car.id)}>Suppr.</Button>
