@@ -2,8 +2,10 @@ import { Button, TextField } from "@mui/material";
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import InputEmail from "../../core/components/forms/InputEmail";
 import withRouter from "../../core/components/routes/withRouter";
+import { login } from "../../core/redux/authenticationActions";
 
 class Login extends Component {
     styleTextField = { width: "300px", margin: "5px" };
@@ -20,10 +22,11 @@ class Login extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log("user:", this.user);
+        //console.log("user:", this.user);
         //appel au serveur
         //sessionStorage.setItem('USER', JSON.stringify(this.user));
-        this.props.navigate("/");
+        //this.props.navigate("/");
+        this.props.login(this.user);
     }
 
     changeTextField = (e) => {
@@ -35,8 +38,8 @@ class Login extends Component {
         const { t, i18n } = this.props;
         /*const t = this.props.t;
         const i18n = this.props.i18n;*/
-        return (
-            this.props.isConnected ?
+        return (<>
+            {this.props.isConnected ?
                 (<p>Vous êtes connecté</p>) :
                 (<div>
                     <h1>Connexion</h1>
@@ -51,7 +54,8 @@ class Login extends Component {
                         <br />
                         <Button variant="contained" color="primary" type="submit">Se connecter</Button>
                     </form>
-                </div>)
+                </div>)}
+        </>
         );
     }
 }
@@ -60,4 +64,8 @@ const mapStateToProps = (state) => {
     return { isConnected: state.isConnected };
 }
 
-export default connect(mapStateToProps)(withTranslation()(withRouter(Login)));
+const mapActionToProps = (payload) => {
+    return { login: bindActionCreators(login, payload) };
+}
+
+export default connect(mapStateToProps, mapActionToProps)(withTranslation()(withRouter(Login)));
